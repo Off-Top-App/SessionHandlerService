@@ -35,7 +35,7 @@ public class WebsocketHandler<T> extends TextWebSocketHandler {
             WebSocketSession webSocketSession; // = (WebSocketSession) sessions.get(i);
 
             Map<String, T> value = new Gson().fromJson(message.getPayload(), Map.class);
-            int userId = ((Integer) value.get("user_id")).intValue();
+            int userId = ((Double) value.get("user_id")).intValue();
             LocalDateTime timeStamp = LocalDateTime.now();
             if (value.get("topic") != null && value.get("audio_data") != null) {
                 String topic = value.get("topic").toString();
