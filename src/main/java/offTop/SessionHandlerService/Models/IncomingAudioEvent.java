@@ -8,15 +8,15 @@ public class IncomingAudioEvent {
 
     public IncomingAudioEvent() {}
 
-    public IncomingAudioEvent(double userId, String timeStamp, String topic) {
-        this.userId = (int) Math.round(userId);
+    public IncomingAudioEvent(int userId, String timeStamp, String topic) {
+        this.userId = userId;
         this.timeStamp = timeStamp;
         this.topic = topic;
     }
 
-    public IncomingAudioEvent(String audioData, double userId, String timeStamp, String topic) {
+    public IncomingAudioEvent(String audioData, int userId, String timeStamp, String topic) {
         this.audioData = audioData;
-        this.userId = (int) Math.round(userId);
+        this.userId = userId;
         this.timeStamp = timeStamp;
         this.topic = topic;
     }

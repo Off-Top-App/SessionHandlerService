@@ -21,7 +21,7 @@ public class ConsumerService {
         this.handler = handler;
     }
 
-    public void sendFocusScoreToWebSocket(double userId, String _message) {
+    public void sendFocusScoreToWebSocket(int userId, String _message) {
         try {
             handler.sendConsumerData(userId, _message);
         } catch (IOException e) {

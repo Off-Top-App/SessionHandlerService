@@ -14,17 +14,12 @@ public class ProducerService {
     private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
     private static final String TOPIC = "IncomingAudioEvent";
 
-    //@Autowired
+    @Autowired
     private KafkaTemplate<String, IncomingAudioEvent> kafkaTemplate;
 
-    // produces and sends message by topic
-    public void sendMessage(String message) {
-        logger.info(String.format(" Producing message -> %s", message));
-        // kafkaTemplate.send(TOPIC, message);
-    }
     public void sendAudioFile(IncomingAudioEvent incomingAudioEvent) {
         kafkaTemplate.send(TOPIC, incomingAudioEvent);
-        logger.info(String.format(" Producing message -> %s", incomingAudioEvent));
+        logger.info(String.format("Producing IncomingAudioEvent"));
     }
 
 }

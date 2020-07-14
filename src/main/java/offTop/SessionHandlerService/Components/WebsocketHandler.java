@@ -1,16 +1,5 @@
 package offTop.SessionHandlerService.Components;
 
-import com.google.gson.Gson;
-import offTop.SessionHandlerService.Models.IncomingAudioEvent;
-import offTop.SessionHandlerService.Services.AudioService;
-import offTop.SessionHandlerService.Services.WebsocketService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,6 +8,18 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.google.gson.Gson;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import offTop.SessionHandlerService.Models.IncomingAudioEvent;
+import offTop.SessionHandlerService.Services.WebsocketService;
+
 @Component
 public class WebsocketHandler<T> extends TextWebSocketHandler {
 
@@ -26,7 +27,7 @@ public class WebsocketHandler<T> extends TextWebSocketHandler {
     private WebsocketService websocketService;
 
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-    Map<Double, WebSocketSession> userSessions = new ConcurrentHashMap<Double, WebSocketSession>();
+    Map<Integer, WebSocketSession> userSessions = new ConcurrentHashMap<>();
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
@@ -34,7 +35,7 @@ public class WebsocketHandler<T> extends TextWebSocketHandler {
             WebSocketSession webSocketSession; // = (WebSocketSession) sessions.get(i);
 
             Map<String, T> value = new Gson().fromJson(message.getPayload(), Map.class);
-            double userId = (double) value.get("user_id");
+            int userId = ((Integer) value.get("user_id")).intValue();
             LocalDateTime timeStamp = LocalDateTime.now();
             if (value.get("topic") != null && value.get("audio_data") != null) {
                 String topic = value.get("topic").toString();
@@ -59,7 +60,7 @@ public class WebsocketHandler<T> extends TextWebSocketHandler {
         }
     }
 
-    public void sendConsumerData(double userId, String message) throws IOException {
+    public void sendConsumerData(int userId, String message) throws IOException {
         TextMessage textMessage = new TextMessage(message);
         if (userSessions.containsKey(userId) == true) {
             WebSocketSession s = userSessions.get(userId);
