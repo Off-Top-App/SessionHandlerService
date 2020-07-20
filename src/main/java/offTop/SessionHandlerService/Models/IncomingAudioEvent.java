@@ -1,53 +1,49 @@
 package offTop.SessionHandlerService.Models;
 
+import java.util.List;
+
 public class IncomingAudioEvent {
-    private String audioData;
-    private int userId;
-    private String timeStamp;
+    private List<Double> audio_data;
+    private int user_id;
+    private String time_exported;
     private String topic;
 
-    public IncomingAudioEvent() {}
+    public IncomingAudioEvent() {
+    }
 
-    public IncomingAudioEvent(int userId, String timeStamp, String topic) {
-        this.userId = userId;
-        this.timeStamp = timeStamp;
+    public IncomingAudioEvent(List<Double> audio_data, int user_id, String time_exported, String topic) {
+        this.audio_data = audio_data;
+        this.user_id = user_id;
+        this.time_exported = time_exported;
         this.topic = topic;
     }
 
-    public IncomingAudioEvent(String audioData, int userId, String timeStamp, String topic) {
-        this.audioData = audioData;
-        this.userId = userId;
-        this.timeStamp = timeStamp;
-        this.topic = topic;
+    public List<Double> getAudio_data() {
+        return audio_data;
     }
 
-    public String getAudioData() {
-        return this.audioData;
+    public void setAudio_data(List<Double> audio_data) {
+        this.audio_data = audio_data;
     }
 
-    public int getUserId() {
-        return this.userId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public String getTimeStamp() {
-        return this.timeStamp;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getTime_exported() {
+        return time_exported;
+    }
+
+    public void setTime_exported(String time_exported) {
+        this.time_exported = time_exported;
     }
 
     public String getTopic() {
-        return this.topic;
-    }
-
-
-    public void setAudioData(String audioData) {
-        this.audioData = audioData;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+        return topic;
     }
 
     public void setTopic(String topic) {
@@ -56,7 +52,9 @@ public class IncomingAudioEvent {
 
     @Override
     public String toString() {
-        return "Audio-Event{" + "audioData='" + audioData + '\'' + ", userId='" + userId + '\'' + ", timeStamp="
-                + timeStamp.toString() + '\'' + ", topic = " + topic + '\'' + '}';
+        return "IncomingAudioEvent [audio_data=" + audio_data + ", time_exported=" + time_exported + ", topic=" + topic
+                + ", user_id=" + user_id + "]";
     }
+    
+    
 }
