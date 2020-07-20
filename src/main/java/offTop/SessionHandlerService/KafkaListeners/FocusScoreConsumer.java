@@ -17,7 +17,7 @@ public class FocusScoreConsumer {
     @Autowired
     MessageParserService messageParserService;
     
-    @KafkaListener(topics = "outgoingFocusScore", groupId = "group_Id")
+    @KafkaListener(topics = "outgoingFocusScore", groupId = "FocusScore")
     public void consumeOutgoingFocusScoreEvent(String message) {
         logger.info("consumeOutgoingFocusScoreEvent()");
         consumerService.readFocusScoreEventData(message);
